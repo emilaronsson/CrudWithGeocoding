@@ -1,4 +1,6 @@
-Innan du kör programmet, gå in i appsettings.json och ändra värdet på Data Source i "ConnectionString" till namnet för din egen maskin/server.
-Kör sedan programmet med IIS Expresss. Databasen kommer sen att skapas samt populeras med lite testdata när du kör programmet.
+Webbapp som anvÃ¤nder googles Geocoding API fÃ¶r att hÃ¤mta koordinater baserat pÃ¥ adressen som en anvÃ¤ndare skriver in.
 
-Happy testing!
+Innan du kÃ¶r programmet, gÃ¥ in i appsettings.json och Ã¤ndra vÃ¤rdet pÃ¥ Data Source i "ConnectionString" till namnet fÃ¶r din egen maskin/server.
+KÃ¶r sedan programmet med IIS Expresss. Databasen kommer sen att skapas samt populeras med lite testdata nÃ¤r du kÃ¶r programmet.
+
+Work in progress.
