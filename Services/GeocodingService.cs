@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace CrudWithGeocoding.Services
 {
-    public class GeocodingService
+    public class GeocodingService : IGeocodingService
     {
         private readonly string apiKey;
         private readonly string apiUrl = "https://maps.googleapis.com/maps/api/geocode/json";
@@ -24,7 +24,7 @@ namespace CrudWithGeocoding.Services
             var content = await response.Content.ReadAsStringAsync();
             var geocodingResponse = JsonConvert.DeserializeObject<GeocodingResponse>(content);
 
-            if (geocodingResponse.Status != "OK")
+            if (geocodingResponse?.Status != "OK")
             {
                 throw new Exception($"Geocoding API request failed with status {geocodingResponse.Status}");
             }

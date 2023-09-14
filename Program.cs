@@ -1,4 +1,5 @@
 using CrudWithGeocoding.Models;
+using CrudWithGeocoding.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddControllersWithViews();
 //DI for the DbContext
 builder.Services.AddDbContext<AppDbContext>(options => 
 options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")));
+builder.Services.AddScoped<IGeocodingService, GeocodingService>(sp => new GeocodingService("AIzaSyDvZAscT76jYQm_nFAfcfUn30As6DHmoRU"));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

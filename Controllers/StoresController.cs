@@ -14,10 +14,13 @@ namespace CrudWithGeocoding.Controllers
     public class StoresController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IGeocodingService _geocodingService;
+        
 
-        public StoresController(AppDbContext context)
+        public StoresController(AppDbContext context, IGeocodingService geocodingService)
         {
             _context = context;
+            _geocodingService = geocodingService;
         }
 
         // GET: Stores
@@ -58,11 +61,10 @@ namespace CrudWithGeocoding.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,CompanyId,Name,Address,City,Zip,Country,Longitude,Latitude")] Store store)
         {
-            //Add GeocodingService and provide your API Key
-            var geocodingService = new GeocodingService("AIzaSyDvZAscT76jYQm_nFAfcfUn30As6DHmoRU");
+
             if (ModelState.IsValid)
             {
-                var geocodingResponseAsTuple = await geocodingService.GetGeocodingResponseAsTuple(store.Address, store.City);
+                var geocodingResponseAsTuple = await _geocodingService.GetGeocodingResponseAsTuple(store.Address, store.City);
                 store.Latitude = geocodingResponseAsTuple.Item1;
                 store.Longitude = geocodingResponseAsTuple.Item2;
 
@@ -104,11 +106,9 @@ namespace CrudWithGeocoding.Controllers
 
             if (ModelState.IsValid)
             {
-                //Add GeocodingService and provide your API Key
-                var geocodingService = new GeocodingService("AIzaSyDvZAscT76jYQm_nFAfcfUn30As6DHmoRU");
                 try
                 {
-                    var geocodingResponseAsTuple = await geocodingService.GetGeocodingResponseAsTuple(store.Address, store.City);
+                    var geocodingResponseAsTuple = await _geocodingService.GetGeocodingResponseAsTuple(store.Address, store.City);
                     store.Latitude = geocodingResponseAsTuple.Item1;
                     store.Longitude = geocodingResponseAsTuple.Item2;
 
